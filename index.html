@@ -308,6 +308,37 @@
       100%{transform:translateY(112vh) rotate(580deg) scale(.4); opacity:0;}
     }
 
+    /* ── FIREFLIES ── */
+    .firefly-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:6;}
+    @keyframes ff-blink{
+      0%,100%{opacity:.12;}  20%{opacity:.95;}  40%{opacity:.3;}  65%{opacity:1;}  85%{opacity:.2;}
+    }
+    @keyframes ff-wander-a{
+      0%  {transform:translate(0,0);}        20% {transform:translate(28px,-40px);}
+      45% {transform:translate(-18px,-72px);}  68% {transform:translate(38px,-50px);}
+      85% {transform:translate(12px,-28px);}  100%{transform:translate(0,0);}
+    }
+    @keyframes ff-wander-b{
+      0%  {transform:translate(0,0);}        25% {transform:translate(-32px,-26px);}
+      50% {transform:translate(-48px,-68px);}  75% {transform:translate(-22px,-40px);}
+      100%{transform:translate(0,0);}
+    }
+    @keyframes ff-wander-c{
+      0%  {transform:translate(0,0);}        22% {transform:translate(42px,-24px);}
+      44% {transform:translate(58px,-54px);}  66% {transform:translate(32px,-84px);}
+      85% {transform:translate(16px,-58px);}  100%{transform:translate(0,0);}
+    }
+    @keyframes ff-wander-d{
+      0%  {transform:translate(0,0);}        30% {transform:translate(-26px,-48px);}
+      58% {transform:translate(24px,-78px);}  80% {transform:translate(36px,-44px);}
+      100%{transform:translate(0,0);}
+    }
+    @keyframes ff-wander-e{
+      0%  {transform:translate(0,0);}        28% {transform:translate(16px,-33px);}
+      52% {transform:translate(-12px,-64px);}  78% {transform:translate(-28px,-38px);}
+      100%{transform:translate(0,0);}
+    }
+
     /* ── BIRTHDAY REVEAL BANNER ── */
     #birthdayBanner{
       position:fixed;inset:0;z-index:700;
@@ -517,6 +548,7 @@
   <div class="dark-hint">turn on the lights…</div>
   <div class="dark-heart-layer" id="darkHeartLayer"></div>
   <div class="glitter-layer" id="darkGlitters"></div>
+  <div class="firefly-layer" id="darkFireflies"></div>
   <div class="switch-wrap" id="switchWrap" onclick="flipSwitch()">
     <div class="switch-plate">
       <div class="switch-lever" id="switchLever"></div>
@@ -536,6 +568,7 @@
     <div class="slide" id="slide2"></div>
     <div class="slide" id="slide3"></div>
     <div class="glitter-layer" id="roomGlitters"></div>
+    <div class="firefly-layer" id="roomFireflies"></div>
     <div class="room-vignette"></div>
     <div class="room-banner">
       <span class="room-banner-title">✨ Happy Birthday PPP ✨</span>
@@ -648,6 +681,7 @@ function goToDarkRoom(){
     p1.style.display='none';
     buildDarkHearts();
     startGlitters('darkGlitters', true);
+    startFireflies('darkFireflies', true);
     p15.style.display='block';
     requestAnimationFrame(()=>requestAnimationFrame(()=>{ p15.style.opacity='1'; }));
   }, 700);
@@ -674,6 +708,38 @@ function startGlitters(containerId, isDark){
       border-radius:${shape};
       animation:glitter-fall ${dur}s ${delay}s linear infinite;
       ${isDark?'filter:drop-shadow(0 0 3px rgba(255,182,193,.7));':'filter:drop-shadow(0 0 4px rgba(255,220,100,.9));'}
+    `;
+    container.appendChild(el);
+  }
+}
+
+function startFireflies(containerId, isDark){
+  const container=document.getElementById(containerId);
+  const wanders=['ff-wander-a','ff-wander-b','ff-wander-c','ff-wander-d','ff-wander-e'];
+  const darkColors=['rgba(255,220,140,.95)','rgba(255,195,100,.9)','rgba(255,182,193,.85)','rgba(255,245,180,.9)','rgba(200,255,210,.7)'];
+  const litColors=['#ffd700','#ff85b3','#ffecb3','#ffffff','#ffc0cb','#ffe566','#ffb347'];
+  const colors=isDark?darkColors:litColors;
+  const count=isDark?50:35;
+  for(let i=0;i<count;i++){
+    const el=document.createElement('div');
+    const size=isDark?(1.5+Math.random()*2.5):(1.8+Math.random()*3);
+    const left=Math.random()*100;
+    const top=Math.random()*100;
+    const wander=wanders[Math.floor(Math.random()*wanders.length)];
+    const wanderDur=5+Math.random()*8;
+    const blinkDur=1.4+Math.random()*2.2;
+    const delay=Math.random()*9;
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    const glow=isDark
+      ?`0 0 5px 2px ${color},0 0 12px 4px rgba(255,180,80,.45)`
+      :`0 0 5px 2px ${color},0 0 14px 5px rgba(255,200,50,.5)`;
+    el.style.cssText=`
+      position:absolute;left:${left}%;top:${top}%;
+      width:${size}px;height:${size}px;border-radius:50%;
+      background:${color};box-shadow:${glow};
+      animation:${wander} ${wanderDur}s ${delay}s ease-in-out infinite,
+                ff-blink ${blinkDur}s ${delay*.4}s ease-in-out infinite;
+      pointer-events:none;
     `;
     container.appendChild(el);
   }
@@ -749,6 +815,7 @@ function goToRoom(){
     startSlideshow();
     buildBalloons();
     startGlitters('roomGlitters', false);
+    startFireflies('roomFireflies', false);
     // Birthday reveal banner
     const banner=document.getElementById('birthdayBanner');
     banner.classList.add('show');
