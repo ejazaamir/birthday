@@ -671,6 +671,13 @@
       transition:background .2s,transform .2s;}
     .msg-close:hover{background:var(--pink-hot);transform:scale(1.1);}
     .msg-big-emoji{font-size:3.5rem;text-align:center;margin-bottom:.8rem;}
+    .msg-big-img{
+      width:clamp(80px,28vw,140px);height:clamp(80px,28vw,140px);
+      border-radius:50%;object-fit:cover;
+      border:3px solid rgba(255,105,180,.55);
+      box-shadow:0 0 22px rgba(255,20,147,.35),0 0 50px rgba(255,20,147,.15);
+      display:block;margin:0 auto .8rem;
+    }
     .msg-from{font-family:'Dancing Script',cursive;font-size:1.4rem;color:var(--pink-deep);margin-bottom:.8rem;}
     .msg-divider{height:2px;background:linear-gradient(90deg,transparent,var(--pink-light),transparent);margin-bottom:1rem;}
     .msg-text{font-size:1rem;color:#555;line-height:1.75;white-space:pre-wrap;max-height:50vh;overflow-y:auto;}
@@ -851,8 +858,8 @@
    GREETING MESSAGES  ← replace with real messages!
 ═══════════════════════════════════════════════════════════════ */
 const GREETINGS = [
-  { from:"Friend 1 🌸", emoji:"🎉", color:["#ff85b3","#e8005a"],
-    message:"Happy Birthday PPP! 🎀\n\n✏️ Replace with your real message!\n\nWishing you all the love! 💕" },
+  { from:"Snooty ❤️", emoji:"🎉", image:"https://media1.tenor.com/m/fybqZRlk8YIAAAAC/dorothy-blink.gif", color:["#ff85b3","#e8005a"],
+    message:"Hey there BESTIE, i hope you have a lovely year ahead. Even though you re dumb af, i still appreciate you. JK, i dont think you are dumb. I think you are secretly a genius. Happy birthday and thanks for being there for me always. and i hope u enjoy this website. ❤️❤️❤️" },
   { from:"Friend 2 💖", emoji:"🎂", color:["#ffb6c1","#d04070"],
     message:"Hey PPP! Happy Birthday! 🌸\n\n✏️ Replace with your real message!\n\nYou are amazing! ✨" },
   { from:"Friend 3 🌷", emoji:"🥳", color:["#ff69b4","#a00058"],
@@ -1221,7 +1228,12 @@ function makeBalloon(c1,c2,number,isLocked){
 ═══════════════════════════════════════════════ */
 function openMsg(i){
   const g=GREETINGS[i];
-  document.getElementById('msgEmoji').textContent=g.emoji;
+  const emojiEl=document.getElementById('msgEmoji');
+  if(g.image){
+    emojiEl.innerHTML=`<img class="msg-big-img" src="${g.image}" alt="${g.from}">`;
+  } else {
+    emojiEl.innerHTML=g.emoji;
+  }
   document.getElementById('msgFrom').textContent=`From: ${g.from}`;
   document.getElementById('msgText').textContent=g.message;
   document.getElementById('msgModal').classList.add('show');
