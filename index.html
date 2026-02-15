@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday PPP! 🎀</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     :root {
@@ -536,6 +536,98 @@
       50%    {box-shadow:0 4px 32px rgba(255,20,147,.8),0 0 0 10px rgba(255,20,147,.1)}
     }
 
+    /* ── SCROLL BUTTON (bottom-left) ── */
+    .scroll-btn{
+      position:fixed;bottom:clamp(14px,3vh,26px);left:clamp(14px,3vw,26px);
+      z-index:200;
+      width:50px;height:50px;border-radius:50%;
+      background:linear-gradient(135deg,rgba(255,105,180,.92),rgba(199,21,133,.96));
+      border:2px solid rgba(255,182,193,.5);
+      color:#fff;font-size:1.5rem;
+      display:none;align-items:center;justify-content:center;
+      cursor:pointer;
+      box-shadow:0 4px 20px rgba(255,20,147,.4);
+      transition:transform .2s,box-shadow .2s;
+      animation:game-btn-pulse 2.2s ease-in-out infinite;
+    }
+    .scroll-btn:hover{transform:scale(1.14);box-shadow:0 6px 28px rgba(255,20,147,.7);}
+
+    /* ── SCROLL OVERLAY ── */
+    .scroll-overlay{
+      position:fixed;inset:0;z-index:500;
+      background:rgba(15,3,8,.94);backdrop-filter:blur(8px);
+      display:none;align-items:center;justify-content:center;
+      padding:clamp(8px,2vw,20px);
+    }
+    .scroll-modal{
+      position:relative;
+      width:100%;max-width:640px;
+      display:flex;flex-direction:column;
+      max-height:92vh;
+    }
+    .scroll-close{
+      position:absolute;top:-14px;right:-10px;
+      z-index:10;
+      width:34px;height:34px;border-radius:50%;
+      background:linear-gradient(135deg,#c71585,#7b0044);
+      border:2px solid rgba(255,182,193,.5);
+      color:#fff;font-size:1rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 2px 12px rgba(199,21,133,.5);
+      transition:transform .15s;
+    }
+    .scroll-close:hover{transform:scale(1.15);}
+    .scroll-roll{
+      height:clamp(32px,5vw,52px);flex-shrink:0;
+      background:radial-gradient(ellipse 100% 280% at 50% 50%,#f5d060 0%,#c8901a 30%,#8b5e0a 55%,#c8901a 75%,#f0c840 100%);
+      border:1.5px solid rgba(80,50,5,.55);
+      box-shadow:0 6px 18px rgba(0,0,0,.55),inset 0 2px 8px rgba(255,255,220,.2);
+    }
+    .scroll-roll.top{border-radius:10px 10px 0 0;border-bottom:none;}
+    .scroll-roll.bot{border-radius:0 0 10px 10px;border-top:none;}
+    .scroll-body{
+      background:
+        repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(139,90,20,.05) 30px,rgba(139,90,20,.05) 31px),
+        linear-gradient(170deg,#fdf3cc 0%,#f5e6a8 25%,#faeebb 50%,#eedfa0 75%,#f8ecc0 100%);
+      border-left:2px solid rgba(100,65,5,.35);
+      border-right:2px solid rgba(100,65,5,.35);
+      padding:clamp(14px,3vw,28px) clamp(18px,5vw,44px);
+      overflow-y:auto;
+      flex:1;min-height:0;
+      position:relative;
+    }
+    .scroll-body::before{
+      content:'';position:absolute;inset:0;pointer-events:none;
+      background:
+        radial-gradient(ellipse 90% 40% at 50% 0%,rgba(139,90,20,.1) 0%,transparent 70%),
+        radial-gradient(ellipse 90% 40% at 50% 100%,rgba(139,90,20,.1) 0%,transparent 70%);
+    }
+    .scroll-heading{
+      font-family:'Cinzel',serif;
+      font-size:clamp(1rem,3vw,1.5rem);
+      text-align:center;letter-spacing:4px;
+      color:#2a0e05;
+      margin-bottom:1.4rem;
+      text-shadow:1px 1px 0 rgba(255,220,100,.4);
+    }
+    .scroll-content{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(.82rem,2vw,1rem);
+      line-height:2;
+      white-space:pre-wrap;
+      color:#2a0e05;
+    }
+    .sc{
+      display:inline;
+      color:#2a0e05;
+      transition:color .35s ease, text-shadow .35s ease;
+    }
+    .sc.lit{
+      color:#c4005a;
+      text-shadow:0 0 7px rgba(255,20,147,.75),0 0 18px rgba(255,105,180,.4);
+    }
+    .sc.emoji{ font-style:normal; }
+
     /* ── GAME OVERLAY ── */
     .game-overlay{
       position:fixed;inset:0;z-index:500;
@@ -726,6 +818,21 @@
 <button class="lock-btn" id="lockBtn" onclick="lockBtnClick(event)">🔐</button>
 <!-- Game button top-left (visible in room) -->
 <button class="game-btn" id="gameBtn" onclick="openGame()">🎯</button>
+<!-- Scroll button bottom-left (visible in room) -->
+<button class="scroll-btn" id="scrollBtn" onclick="openScroll()">📜</button>
+
+<!-- Scroll message overlay -->
+<div class="scroll-overlay" id="scrollOverlay">
+  <div class="scroll-modal">
+    <button class="scroll-close" onclick="closeScroll()">✕</button>
+    <div class="scroll-roll top"></div>
+    <div class="scroll-body">
+      <div class="scroll-heading">✦ A MESSAGE FOR PPP ✦</div>
+      <div class="scroll-content" id="scrollContent"></div>
+    </div>
+    <div class="scroll-roll bot"></div>
+  </div>
+</div>
 
 <!-- Duck face game overlay -->
 <div class="game-overlay" id="gameOverlay">
@@ -1099,6 +1206,7 @@ function goToRoom(){
     btn.classList.add('playing');
     document.getElementById('lockBtn').style.display='flex';
     document.getElementById('gameBtn').style.display='flex';
+    document.getElementById('scrollBtn').style.display='flex';
     requestAnimationFrame(()=>requestAnimationFrame(()=>{ p2.style.opacity='1'; }));
   }, 600);
 }
@@ -1239,6 +1347,75 @@ function openMsg(i){
   document.getElementById('msgModal').classList.add('show');
 }
 function closeMsgModal(){ document.getElementById('msgModal').classList.remove('show'); }
+
+/* ═══════════════════════════════════════════════
+   SCROLL MESSAGE
+═══════════════════════════════════════════════ */
+const SCROLL_TEXT = `HAPPY BIRTHDAY PPP 🎉💖
+
+To our favorite pink-obsessed queen, professional sleeper, and full-time duck-face influencer —
+
+PPP, we hope your birthday is as pink as your entire personality and as dramatic as an episode of Love Is Blind. May your Starbucks coffee always hit perfectly, may your pink mug stay eternally iconic, and may your TikTok algorithm bless you with nothing but elite content.
+
+You wake up at 4AM on weekdays like a responsible legend… and then on weekends you vanish into hibernation mode and wake up at approximately 3 business days later. Honestly? We respect the dedication.
+
+We also admire your commitment to:
+  • Sleeping like it's your full-time job
+  • Doom scrolling TikTok like an Olympic sport
+  • Watching Love Is Blind like it's research
+  • Having "no social life apparently" (relatable)
+  • And of course, the legendary quote:
+"no knowledge, lemme be dumb"
+
+A line that deserves to be carved into the Midnight Misfit history books.
+
+Also… your duck-face photos? Absolutely iconic. We may roast you for it forever, but deep down we all know it's your signature brand. Never change.
+
+We hope this year brings you:
+  • Unlimited pink things 💗
+  • Endless Starbucks ☕
+  • Top-tier TikTok content 📱
+  • Maximum sleep 😴
+  • And maybe… one (1) social interaction (optional)
+
+Happy Birthday PPP 🎂🎀
+We love you lots 🫶
+
+— Midnight Misfit 💕`;
+
+let scrollAnimId=null;
+function openScroll(){
+  const overlay=document.getElementById('scrollOverlay');
+  overlay.style.display='flex';
+  buildScrollChars();
+  animateScrollChars();
+}
+function closeScroll(){
+  if(scrollAnimId) clearTimeout(scrollAnimId);
+  document.getElementById('scrollOverlay').style.display='none';
+}
+function buildScrollChars(){
+  const container=document.getElementById('scrollContent');
+  container.innerHTML='';
+  [...SCROLL_TEXT].forEach(ch=>{
+    const s=document.createElement('span');
+    s.className='sc'+(ch.match(/\p{Emoji}/u)?' emoji':'');
+    s.textContent=ch;
+    container.appendChild(s);
+  });
+}
+function animateScrollChars(){
+  const chars=document.querySelectorAll('#scrollContent .sc');
+  chars.forEach(c=>c.classList.remove('lit'));
+  let i=0;
+  function step(){
+    if(i>=chars.length) return;
+    chars[i].classList.add('lit');
+    i++;
+    scrollAnimId=setTimeout(step, i<10?60:16);
+  }
+  step();
+}
 
 /* ═══════════════════════════════════════════════
    DUCK FACE GAME
