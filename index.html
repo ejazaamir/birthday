@@ -552,6 +552,29 @@
     }
     .scroll-btn:hover{transform:scale(1.14);box-shadow:0 6px 28px rgba(255,20,147,.7);}
 
+    /* ── CORNER BUTTON LABELS ── */
+    .game-btn,.lock-btn,.scroll-btn,.music-btn{ overflow:visible; }
+    .game-btn::after,.lock-btn::after,.scroll-btn::after,.music-btn::after{
+      position:absolute;top:50%;transform:translateY(-50%);
+      white-space:nowrap;
+      font-family:'Dancing Script',cursive;font-size:.68rem;
+      color:rgba(255,220,235,.95);
+      background:rgba(35,0,18,.82);
+      padding:3px 10px;border-radius:20px;
+      border:1px solid rgba(255,105,180,.32);
+      pointer-events:none;
+      backdrop-filter:blur(4px);
+      box-shadow:0 2px 8px rgba(0,0,0,.35);
+      letter-spacing:.4px;
+    }
+    .game-btn::after  { content:'◄ duck game';    left:calc(100% + 8px); }
+    .lock-btn::after  { content:'secret room ►';  right:calc(100% + 8px); }
+    .scroll-btn::after{ content:'◄ scroll';        left:calc(100% + 8px); }
+    .music-btn::after { content:'music ►';         right:calc(100% + 8px); }
+    @media(max-width:400px){
+      .game-btn::after,.lock-btn::after,.scroll-btn::after,.music-btn::after{ display:none; }
+    }
+
     /* ── SCROLL OVERLAY ── */
     .scroll-overlay{
       position:fixed;inset:0;z-index:500;
@@ -1351,37 +1374,90 @@ function closeMsgModal(){ document.getElementById('msgModal').classList.remove('
 /* ═══════════════════════════════════════════════
    SCROLL MESSAGE
 ═══════════════════════════════════════════════ */
-const SCROLL_TEXT = `HAPPY BIRTHDAY PPP 🎉💖
+const SCROLL_TEXT = `✦ ─────────────── ✦ ─────────────── ✦
 
-To our favorite pink-obsessed queen, professional sleeper, and full-time duck-face influencer —
+𝓗𝓪𝓹𝓹𝔂 𝓑𝓲𝓻𝓽𝓱𝓭𝓪𝔂, 𝓟𝓟𝓟 🎉 💖 🎉
 
-PPP, we hope your birthday is as pink as your entire personality and as dramatic as an episode of Love Is Blind. May your Starbucks coffee always hit perfectly, may your pink mug stay eternally iconic, and may your TikTok algorithm bless you with nothing but elite content.
+✦ ─────────────── ✦ ─────────────── ✦
 
-You wake up at 4AM on weekdays like a responsible legend… and then on weekends you vanish into hibernation mode and wake up at approximately 3 business days later. Honestly? We respect the dedication.
+To our dearest pink-obsessed queen,
+  professional sleeper & full-time duck-face influencer —
 
-We also admire your commitment to:
-  • Sleeping like it's your full-time job
-  • Doom scrolling TikTok like an Olympic sport
-  • Watching Love Is Blind like it's research
-  • Having "no social life apparently" (relatable)
-  • And of course, the legendary quote:
-"no knowledge, lemme be dumb"
+May this day be as radiant as your spirit,
+as pink as your very soul, and as dramatic
+as a finale episode of Love Is Blind. 🌸
 
-A line that deserves to be carved into the Midnight Misfit history books.
+May your Starbucks always hit perfectly,
+may your pink mug stay eternally iconic,
+and may the TikTok algorithm forever
+bless you with nothing but elite content. ✨
 
-Also… your duck-face photos? Absolutely iconic. We may roast you for it forever, but deep down we all know it's your signature brand. Never change.
+✦ ─────────── ✦
 
-We hope this year brings you:
-  • Unlimited pink things 💗
-  • Endless Starbucks ☕
-  • Top-tier TikTok content 📱
-  • Maximum sleep 😴
-  • And maybe… one (1) social interaction (optional)
+You rise at 4AM on weekdays like a
+  responsible and distinguished legend…
 
-Happy Birthday PPP 🎂🎀
-We love you lots 🫶
+…and then on weekends, you vanish
+  into the sacred realm of hibernation,
+  emerging approximately 3 business days later.
 
-— Midnight Misfit 💕`;
+Honestly? We bow to the dedication. 🫡
+
+✦ ─────────── ✦
+
+We humbly admire your devotion to the arts of :
+
+  ❋  Sleeping as though it were your
+       sworn vocation & life's purpose
+
+  ❋  Doom-scrolling TikTok with the
+       discipline of an Olympic athlete
+
+  ❋  Studying Love Is Blind as though
+       it were sacred academic research
+
+  ❋  Maintaining "no social life apparently"
+       — deeply relatable, we must confess
+
+  ❋  And above all… the immortal proclamation :
+
+  ❝ no knowledge, lemme be dumb ❞
+
+~ A verse worthy of being chiselled into
+  the Midnight Misfit history books, forever ~
+
+✦ ─────────── ✦
+
+And your duck-face portraits?
+
+  Absolutely. Iconic.
+
+We shall roast you for them until the end of time —
+yet deep within our hearts, we know it is
+your signature. Your brand. Your legacy. 🦆
+
+  Never change.
+
+✦ ─────────── ✦
+
+May this year bestow upon you :
+
+  ❋  Unlimited pink things 💗
+  ❋  Endless Starbucks ☕
+  ❋  Top-tier TikTok content 📱
+  ❋  Maximum, glorious sleep 😴
+  ❋  And perhaps… one (1) social interaction
+       — entirely optional, of course
+
+✦ ─────────────── ✦ ─────────────── ✦
+
+  𝓗𝓪𝓹𝓹𝔂 𝓑𝓲𝓻𝓽𝓱𝓭𝓪𝔂, 𝓟𝓟𝓟 🎂 🎀
+
+  We love you more than words can say. 🫶
+
+     — Midnight Misfit 💕 —
+
+✦ ─────────────── ✦ ─────────────── ✦`;
 
 let scrollAnimId=null;
 function openScroll(){
