@@ -629,6 +629,67 @@
     }
     .sc.emoji{ font-style:normal; }
 
+    /* ── SCROLL BIRTHDAY CAKE ── */
+    .cake-wrap{
+      display:flex;flex-direction:column;align-items:center;
+      margin:.6rem auto 1rem;
+    }
+    .cake-glow-ring{
+      animation:cake-aura 1.4s ease-in-out infinite alternate;
+    }
+    @keyframes cake-aura{
+      from{filter:drop-shadow(0 0 6px rgba(255,160,0,.75)) drop-shadow(0 0 14px rgba(255,105,180,.35));}
+      to  {filter:drop-shadow(0 0 14px rgba(255,215,0,1))  drop-shadow(0 0 28px rgba(255,105,180,.6));}
+    }
+    .cake-flame{
+      width:11px;height:20px;
+      background:radial-gradient(ellipse at 50% 95%,#fff 0%,#ffe566 28%,#ff9500 62%,transparent 100%);
+      border-radius:50% 50% 30% 30% / 60% 60% 40% 40%;
+      transform-origin:bottom center;
+      animation:flame-flicker .55s ease-in-out infinite alternate;
+    }
+    @keyframes flame-flicker{
+      0%  {transform:scaleX(1)    scaleY(1)    rotate(-4deg);opacity:1;}
+      35% {transform:scaleX(.72)  scaleY(1.18) rotate(3deg); opacity:.92;}
+      70% {transform:scaleX(1.12) scaleY(.88)  rotate(-2deg);opacity:.88;}
+      100%{transform:scaleX(.88)  scaleY(1.06) rotate(2deg); opacity:1;}
+    }
+    .cake-candle{
+      width:9px;height:26px;
+      background:linear-gradient(90deg,#ffd0e8 0%,#ffb6d5 45%,#ff85b3 75%,#ffcce8 100%);
+      border-radius:2px 2px 1px 1px;
+    }
+    .cake-tier1{
+      width:66px;height:17px;
+      background:linear-gradient(180deg,#ffd8ec,#ffb0d5);
+      border-radius:4px 4px 0 0;
+      border:1.5px solid rgba(255,105,180,.45);
+      position:relative;overflow:visible;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .cake-tier1::before{
+      content:'';position:absolute;top:-5px;left:6px;right:6px;height:7px;
+      background:repeating-linear-gradient(90deg,rgba(255,255,255,.9) 0,rgba(255,255,255,.9) 5px,transparent 5px,transparent 9px);
+      border-radius:3px;
+    }
+    .cake-tier2{
+      width:84px;height:36px;
+      background:linear-gradient(180deg,#ff85b3 0%,#d4005a 100%);
+      border:1.5px solid rgba(220,0,80,.35);border-top:none;
+      display:flex;align-items:center;justify-content:center;gap:9px;
+    }
+    .cake-dot{
+      width:7px;height:7px;border-radius:50%;
+      background:radial-gradient(circle at 35% 30%,#fff,#ffd0e8);
+      box-shadow:0 0 5px rgba(255,182,193,.9);
+    }
+    .cake-base{
+      width:94px;height:7px;
+      background:linear-gradient(180deg,#ffb8d4,#ff7aaa);
+      border-radius:0 0 6px 6px;
+      border:1px solid rgba(255,105,180,.3);border-top:none;
+    }
+
     /* ── GAME OVERLAY ── */
     .game-overlay{
       position:fixed;inset:0;z-index:500;
@@ -828,8 +889,26 @@
     <button class="scroll-close" onclick="closeScroll()">✕</button>
     <div class="scroll-roll top"></div>
     <div class="scroll-body">
+      <div class="cake-glow-ring"><div class="cake-wrap">
+        <div class="cake-flame"></div>
+        <div class="cake-candle"></div>
+        <div class="cake-tier1"></div>
+        <div class="cake-tier2">
+          <div class="cake-dot"></div><div class="cake-dot"></div><div class="cake-dot"></div>
+        </div>
+        <div class="cake-base"></div>
+      </div></div>
       <div class="scroll-heading">✦ A MESSAGE FOR PPP ✦</div>
       <div class="scroll-content" id="scrollContent"></div>
+      <div class="cake-glow-ring"><div class="cake-wrap">
+        <div class="cake-flame"></div>
+        <div class="cake-candle"></div>
+        <div class="cake-tier1"></div>
+        <div class="cake-tier2">
+          <div class="cake-dot"></div><div class="cake-dot"></div><div class="cake-dot"></div>
+        </div>
+        <div class="cake-base"></div>
+      </div></div>
     </div>
     <div class="scroll-roll bot"></div>
   </div>
