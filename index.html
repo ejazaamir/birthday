@@ -552,28 +552,6 @@
     }
     .scroll-btn:hover{transform:scale(1.14);box-shadow:0 6px 28px rgba(255,20,147,.7);}
 
-    /* ── CORNER BUTTON LABELS ── */
-    .game-btn,.lock-btn,.scroll-btn,.music-btn{ overflow:visible; }
-    .game-btn::after,.lock-btn::after,.scroll-btn::after,.music-btn::after{
-      position:absolute;top:50%;transform:translateY(-50%);
-      white-space:nowrap;
-      font-family:'Dancing Script',cursive;font-size:.68rem;
-      color:rgba(255,220,235,.95);
-      background:rgba(35,0,18,.82);
-      padding:3px 10px;border-radius:20px;
-      border:1px solid rgba(255,105,180,.32);
-      pointer-events:none;
-      backdrop-filter:blur(4px);
-      box-shadow:0 2px 8px rgba(0,0,0,.35);
-      letter-spacing:.4px;
-    }
-    .game-btn::after  { content:'◄ duck game';    left:calc(100% + 8px); }
-    .lock-btn::after  { content:'secret room ►';  right:calc(100% + 8px); }
-    .scroll-btn::after{ content:'◄ scroll';        left:calc(100% + 8px); }
-    .music-btn::after { content:'music ►';         right:calc(100% + 8px); }
-    @media(max-width:400px){
-      .game-btn::after,.lock-btn::after,.scroll-btn::after,.music-btn::after{ display:none; }
-    }
 
     /* ── SCROLL OVERLAY ── */
     .scroll-overlay{
