@@ -254,6 +254,192 @@
       transition:transform .8s cubic-bezier(.45,0,.15,1), opacity .6s ease;
     }
 
+    /* ── IPHONE FRAME ── */
+    .iphone-frame{
+      position:relative;
+      width:clamp(270px,72vw,360px);
+      height:clamp(480px,72vh,680px);
+      background:#000;
+      border-radius:44px;
+      border:3px solid #2a2a2a;
+      box-shadow:0 0 0 2px #111,0 20px 60px rgba(0,0,0,.7),0 0 80px rgba(255,20,147,.12);
+      overflow:hidden;
+      margin-top:clamp(6px,1.5vh,16px);
+    }
+    /* Notch */
+    .iphone-notch{
+      position:absolute;top:0;left:50%;transform:translateX(-50%);
+      width:clamp(110px,38%,150px);height:28px;
+      background:#000;border-radius:0 0 18px 18px;
+      z-index:20;
+    }
+    .iphone-notch::before{
+      content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);
+      width:8px;height:8px;border-radius:50%;
+      background:radial-gradient(circle at 40% 35%,#333,#111);
+      border:1px solid #222;
+    }
+    /* Status bar */
+    .iphone-status{
+      position:absolute;top:0;left:0;right:0;height:44px;
+      z-index:15;
+      display:flex;align-items:flex-end;justify-content:space-between;
+      padding:0 24px 6px;
+      font-size:.65rem;color:#fff;font-family:'Montserrat',sans-serif;
+      font-weight:600;letter-spacing:.3px;
+    }
+    .iphone-status-time{flex:1;}
+    .iphone-status-icons{flex:1;text-align:right;font-size:.6rem;letter-spacing:1px;}
+    /* Side buttons */
+    .iphone-frame::before{
+      content:'';position:absolute;left:-5px;top:120px;
+      width:3px;height:28px;background:#2a2a2a;border-radius:2px 0 0 2px;
+      box-shadow:0 36px 0 #2a2a2a,0 72px 0 #2a2a2a;
+    }
+    .iphone-frame::after{
+      content:'';position:absolute;right:-5px;top:140px;
+      width:3px;height:50px;background:#2a2a2a;border-radius:0 2px 2px 0;
+    }
+    /* Home indicator */
+    .iphone-home{
+      position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+      width:clamp(100px,36%,140px);height:4px;
+      background:rgba(255,255,255,.35);border-radius:3px;
+      z-index:20;
+    }
+
+    /* ── TIKTOK FEED ── */
+    .tt-feed{
+      position:absolute;inset:0;
+      overflow-y:scroll;
+      scroll-snap-type:y mandatory;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+    }
+    .tt-feed::-webkit-scrollbar{display:none;}
+    .tt-card{
+      position:relative;
+      width:100%;height:100%;
+      scroll-snap-align:start;
+      flex-shrink:0;
+      overflow:hidden;
+    }
+    .tt-card-img{
+      width:100%;height:100%;object-fit:cover;
+      display:block;
+    }
+    .tt-card-gradient{
+      position:absolute;inset:0;
+      background:linear-gradient(0deg,rgba(0,0,0,.55) 0%,transparent 35%,transparent 75%,rgba(0,0,0,.3) 100%);
+      pointer-events:none;
+    }
+    /* TikTok logo */
+    .tt-logo{
+      position:absolute;top:50px;left:14px;z-index:10;
+      font-family:'Montserrat',sans-serif;font-weight:700;
+      font-size:1.1rem;color:#fff;letter-spacing:-.5px;
+      text-shadow:0 1px 4px rgba(0,0,0,.5);
+      display:flex;align-items:center;gap:6px;
+    }
+    .tt-logo-icon{
+      display:inline-block;width:20px;height:22px;position:relative;
+    }
+    .tt-logo-icon::before,.tt-logo-icon::after{
+      content:'♪';position:absolute;font-size:16px;
+    }
+    .tt-logo-icon::before{color:#25f4ee;top:0;left:0;}
+    .tt-logo-icon::after{color:#fe2c55;top:1px;left:2px;}
+    /* Right sidebar icons */
+    .tt-sidebar{
+      position:absolute;right:10px;bottom:clamp(80px,18%,140px);
+      display:flex;flex-direction:column;align-items:center;gap:18px;
+      z-index:10;
+    }
+    .tt-icon{
+      display:flex;flex-direction:column;align-items:center;gap:3px;
+      color:#fff;font-size:1.5rem;
+      text-shadow:0 1px 6px rgba(0,0,0,.6);
+    }
+    .tt-icon-count{
+      font-size:.6rem;font-family:'Montserrat',sans-serif;
+      font-weight:600;color:#fff;
+      text-shadow:0 1px 4px rgba(0,0,0,.6);
+    }
+    /* Profile pic */
+    .tt-avatar{
+      width:36px;height:36px;border-radius:50%;
+      border:2px solid #fff;
+      background:linear-gradient(135deg,#ff69b4,#c71585);
+      display:flex;align-items:center;justify-content:center;
+      font-size:.9rem;color:#fff;margin-bottom:4px;
+    }
+    /* Rotating music disc */
+    .tt-disc{
+      width:36px;height:36px;border-radius:50%;
+      background:radial-gradient(circle at 50% 50%,#333 28%,#111 30%,#333 32%,#111 60%,#1a1a1a 100%);
+      border:2px solid #333;
+      animation:tt-disc-spin 4s linear infinite;
+      display:flex;align-items:center;justify-content:center;
+      font-size:.55rem;color:#999;
+    }
+    @keyframes tt-disc-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    /* Bottom text overlay */
+    .tt-bottom{
+      position:absolute;bottom:clamp(20px,5%,40px);left:12px;right:60px;
+      z-index:10;color:#fff;
+    }
+    .tt-username{
+      font-family:'Montserrat',sans-serif;font-weight:700;
+      font-size:.82rem;margin-bottom:5px;
+      text-shadow:0 1px 4px rgba(0,0,0,.6);
+    }
+    .tt-caption{
+      font-family:'Montserrat',sans-serif;font-size:.72rem;
+      line-height:1.4;color:rgba(255,255,255,.92);
+      text-shadow:0 1px 3px rgba(0,0,0,.5);
+      margin-bottom:6px;
+    }
+    .tt-sound{
+      font-family:'Montserrat',sans-serif;font-size:.62rem;
+      color:rgba(255,255,255,.8);
+      display:flex;align-items:center;gap:5px;
+    }
+    .tt-sound-icon{animation:tt-sound-bounce .8s ease-in-out infinite alternate;}
+    @keyframes tt-sound-bounce{0%{transform:rotate(-8deg)}100%{transform:rotate(8deg)}}
+    /* Enter card */
+    .tt-enter-card{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:16px;cursor:pointer;
+      background:linear-gradient(160deg,#2a041a 0%,#5c1535 40%,#8c1a48 70%,#3d0e28 100%);
+    }
+    .tt-enter-card:active{filter:brightness(1.3);}
+    .tt-enter-text{
+      font-family:'Montserrat',sans-serif;font-weight:700;
+      font-size:clamp(1.1rem,3.5vw,1.5rem);color:#fff;
+      text-align:center;padding:0 20px;
+      text-shadow:0 0 20px rgba(255,105,180,.7);
+      animation:title-glow 2.4s ease-in-out infinite;
+    }
+    .tt-enter-emoji{font-size:3rem;animation:hint-bounce 1.8s ease-in-out infinite;}
+    .tt-enter-hint{
+      font-family:'Montserrat',sans-serif;font-size:.7rem;
+      color:rgba(255,200,220,.6);letter-spacing:2px;text-transform:uppercase;
+    }
+    /* FYP / Following tabs */
+    .tt-tabs{
+      position:absolute;top:48px;left:0;right:0;z-index:10;
+      display:flex;justify-content:center;gap:18px;
+    }
+    .tt-tab{
+      font-family:'Montserrat',sans-serif;font-size:.78rem;
+      color:rgba(255,255,255,.5);font-weight:600;
+      padding-bottom:4px;
+    }
+    .tt-tab.active{
+      color:#fff;
+      border-bottom:2px solid #fff;
+    }
+
     /* ===================== PAGE 1.5 — DARK ROOM ===================== */
     #page15 {
       display:none;opacity:0;transition:opacity .7s ease;
@@ -1174,54 +1360,112 @@
 </div>
 
 <!-- ============================================================
-     PAGE 1 — THE DOOR
+     PAGE 1 — TIKTOK PHONE
 ============================================================ -->
 <div id="page1" class="page">
   <div class="p1-title">✨ Happy Birthday PPP ✨</div>
-  <!-- Dreamy clouds -->
-  <div class="gate-cloud" style="width:200px;height:85px;top:7%;left:2%;--cd:22s;--cx:40px;--cy:-12px;opacity:.75;"></div>
-  <div class="gate-cloud" style="width:240px;height:95px;top:14%;right:1%;--cd:28s;--cx:-45px;--cy:10px;opacity:.68;"></div>
-  <div class="gate-cloud" style="width:150px;height:65px;bottom:16%;left:4%;--cd:19s;--cx:28px;--cy:-20px;opacity:.58;"></div>
-  <div class="gate-cloud" style="width:180px;height:75px;bottom:20%;right:3%;--cd:25s;--cx:-35px;--cy:14px;opacity:.62;"></div>
-  <div class="gate-cloud" style="width:130px;height:55px;top:40%;left:0%;--cd:21s;--cx:22px;--cy:-8px;opacity:.48;"></div>
-  <div class="gate-cloud" style="width:110px;height:48px;top:30%;right:0%;--cd:17s;--cx:-18px;--cy:6px;opacity:.45;"></div>
-  <!-- Gate scene -->
-  <div class="gate-scene">
-    <div class="gate-wrap" onclick="handleDoorClick()">
-      <!-- Crown + raised medallion -->
-      <div class="gate-crown">
-        <div class="gate-medallion">✿</div>
-        <span class="gate-crown-orn">— ✦ &nbsp; P P P &nbsp; ✦ —</span>
-      </div>
-      <!-- Side pillars -->
-      <div class="gate-post gate-post-l"></div>
-      <div class="gate-post gate-post-r"></div>
-      <!-- Center post with hinges -->
-      <div class="gate-center-post">
-        <div class="gate-hinge gate-hinge-t"></div>
-        <div class="gate-hinge gate-hinge-m"></div>
-        <div class="gate-hinge gate-hinge-b"></div>
-      </div>
-      <!-- Left solid panel -->
-      <div class="gate-panel gate-panel-l" id="gatePanelL">
-        <div class="gate-panel-front">
-          <div class="gate-inset gate-inset-top"><span class="gate-ornament">✾</span></div>
-          <div class="gate-inset gate-inset-bot"><span class="gate-ornament-sm">◈</span></div>
+  <div class="iphone-frame">
+    <div class="iphone-notch"></div>
+    <div class="iphone-status">
+      <div class="iphone-status-time">9:41</div>
+      <div class="iphone-status-icons">⚡ 📶</div>
+    </div>
+    <div class="tt-feed">
+      <!-- Card 1 -->
+      <div class="tt-card">
+        <img class="tt-card-img" src="room1.jpg" alt="">
+        <div class="tt-card-gradient"></div>
+        <div class="tt-logo"><span class="tt-logo-icon"></span>TikTok</div>
+        <div class="tt-tabs"><span class="tt-tab">Following</span><span class="tt-tab active">For You</span></div>
+        <div class="tt-sidebar">
+          <div class="tt-avatar">P</div>
+          <div class="tt-icon">♥<div class="tt-icon-count">4.2K</div></div>
+          <div class="tt-icon">💬<div class="tt-icon-count">218</div></div>
+          <div class="tt-icon">↗<div class="tt-icon-count">89</div></div>
+          <div class="tt-disc">♫</div>
+        </div>
+        <div class="tt-bottom">
+          <div class="tt-username">@ppp.aesthetic</div>
+          <div class="tt-caption">✨ POV: her room is goals</div>
+          <div class="tt-sound"><span class="tt-sound-icon">♪</span> original sound - ppp</div>
         </div>
       </div>
-      <!-- Right solid panel -->
-      <div class="gate-panel gate-panel-r" id="gatePanelR">
-        <div class="gate-panel-front">
-          <div class="gate-inset gate-inset-top"><span class="gate-ornament">✾</span></div>
-          <div class="gate-inset gate-inset-bot"><span class="gate-ornament-sm">◈</span></div>
+      <!-- Card 2 -->
+      <div class="tt-card">
+        <img class="tt-card-img" src="room2.jpg" alt="">
+        <div class="tt-card-gradient"></div>
+        <div class="tt-sidebar">
+          <div class="tt-avatar">P</div>
+          <div class="tt-icon">♥<div class="tt-icon-count">6.8K</div></div>
+          <div class="tt-icon">💬<div class="tt-icon-count">402</div></div>
+          <div class="tt-icon">↗<div class="tt-icon-count">156</div></div>
+          <div class="tt-disc">♫</div>
         </div>
+        <div class="tt-bottom">
+          <div class="tt-username">@ppp.vibes</div>
+          <div class="tt-caption">💗 pink everything, always</div>
+          <div class="tt-sound"><span class="tt-sound-icon">♪</span> original sound - ppp</div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="tt-card">
+        <img class="tt-card-img" src="room3.jpg" alt="">
+        <div class="tt-card-gradient"></div>
+        <div class="tt-sidebar">
+          <div class="tt-avatar">P</div>
+          <div class="tt-icon">♥<div class="tt-icon-count">3.1K</div></div>
+          <div class="tt-icon">💬<div class="tt-icon-count">175</div></div>
+          <div class="tt-icon">↗<div class="tt-icon-count">64</div></div>
+          <div class="tt-disc">♫</div>
+        </div>
+        <div class="tt-bottom">
+          <div class="tt-username">@ppp.world</div>
+          <div class="tt-caption">🎀 living her best life</div>
+          <div class="tt-sound"><span class="tt-sound-icon">♪</span> original sound - ppp</div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="tt-card">
+        <img class="tt-card-img" src="room4.jpg" alt="">
+        <div class="tt-card-gradient"></div>
+        <div class="tt-sidebar">
+          <div class="tt-avatar">P</div>
+          <div class="tt-icon">♥<div class="tt-icon-count">5.5K</div></div>
+          <div class="tt-icon">💬<div class="tt-icon-count">310</div></div>
+          <div class="tt-icon">↗<div class="tt-icon-count">122</div></div>
+          <div class="tt-disc">♫</div>
+        </div>
+        <div class="tt-bottom">
+          <div class="tt-username">@ppp.moments</div>
+          <div class="tt-caption">🌸 aesthetic overload</div>
+          <div class="tt-sound"><span class="tt-sound-icon">♪</span> original sound - ppp</div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="tt-card">
+        <img class="tt-card-img" src="selfie.png" alt="">
+        <div class="tt-card-gradient"></div>
+        <div class="tt-sidebar">
+          <div class="tt-avatar">P</div>
+          <div class="tt-icon">♥<div class="tt-icon-count">12.4K</div></div>
+          <div class="tt-icon">💬<div class="tt-icon-count">890</div></div>
+          <div class="tt-icon">↗<div class="tt-icon-count">445</div></div>
+          <div class="tt-disc">♫</div>
+        </div>
+        <div class="tt-bottom">
+          <div class="tt-username">@ppp.queen</div>
+          <div class="tt-caption">👑 the main character</div>
+          <div class="tt-sound"><span class="tt-sound-icon">♪</span> original sound - ppp</div>
+        </div>
+      </div>
+      <!-- Card 6 — ENTER -->
+      <div class="tt-card tt-enter-card" onclick="handleDoorClick()">
+        <div class="tt-enter-emoji">🎉</div>
+        <div class="tt-enter-text">Tap to enter<br>PPP's Birthday Party</div>
+        <div class="tt-enter-hint">✨ swipe to explore, tap to enter ✨</div>
       </div>
     </div>
-  </div>
-  <div class="p1-hint">✨ click the gates to enter ✨</div>
-  <div class="p1-swipe">
-    <div class="p1-swipe-chevrons"><span>˄</span><span>˄</span><span>˄</span></div>
-    <div class="p1-swipe-text">swipe up</div>
+    <div class="iphone-home"></div>
   </div>
 </div>
 
@@ -1430,9 +1674,7 @@ const LOCKED_POS = [84, 12];
 let doorOpened=false;
 function handleDoorClick(){
   if(doorOpened)return; doorOpened=true;
-  document.getElementById('gatePanelL').classList.add('open');
-  document.getElementById('gatePanelR').classList.add('open');
-  setTimeout(goToDarkRoom, 1900);
+  goToDarkRoom();
 }
 
 function goToDarkRoom(){
