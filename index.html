@@ -205,6 +205,55 @@
     @media(max-height:480px){.p1-title{font-size:1.2rem;}}
     @keyframes hint-bounce{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(-6px);opacity:1}}
 
+    /* ── TIKTOK SWIPE-UP CHEVRON ── */
+    .p1-swipe{
+      position:absolute;bottom:clamp(14px,3vh,32px);left:50%;transform:translateX(-50%);
+      display:flex;flex-direction:column;align-items:center;gap:2px;
+      pointer-events:none;
+    }
+    .p1-swipe-chevrons{
+      display:flex;flex-direction:column;align-items:center;gap:0;
+      animation:swipe-bounce 1.6s ease-in-out infinite;
+    }
+    .p1-swipe-chevrons span{
+      display:block;font-size:1.4rem;line-height:1;
+      color:rgba(255,200,220,.7);
+      text-shadow:0 0 8px rgba(255,105,180,.6);
+    }
+    .p1-swipe-chevrons span:nth-child(1){opacity:.4;}
+    .p1-swipe-chevrons span:nth-child(2){opacity:.7;}
+    .p1-swipe-chevrons span:nth-child(3){opacity:1;}
+    .p1-swipe-text{
+      font-family:'Montserrat',sans-serif;
+      font-size:.7rem;letter-spacing:2.5px;text-transform:uppercase;
+      color:rgba(255,200,220,.65);margin-top:4px;
+    }
+    @keyframes swipe-bounce{
+      0%,100%{transform:translateY(0);opacity:.7;}
+      50%    {transform:translateY(-10px);opacity:1;}
+    }
+
+    /* ── TIKTOK FLOATING HEARTS ── */
+    .p1-tiktok-heart{
+      position:absolute;bottom:0;right:clamp(14px,4vw,40px);
+      font-size:1.6rem;pointer-events:none;opacity:0;
+      animation:tiktok-heart-rise 3s ease-out forwards;
+    }
+    @keyframes tiktok-heart-rise{
+      0%  {transform:translateY(0) scale(.6) rotate(0);opacity:0;}
+      10% {opacity:1;}
+      50% {opacity:.9;transform:translateY(-38vh) scale(1.1) rotate(-12deg) translateX(var(--hx,8px));}
+      80% {opacity:.4;transform:translateY(-65vh) scale(.9) rotate(8deg) translateX(calc(var(--hx,8px) * -1));}
+      100%{opacity:0;transform:translateY(-85vh) scale(.6) rotate(-5deg);}
+    }
+
+    /* ── SLIDE-UP TRANSITION ── */
+    #page1.slide-up{
+      transform:translateY(-100vh);
+      opacity:0;
+      transition:transform .8s cubic-bezier(.45,0,.15,1), opacity .6s ease;
+    }
+
     /* ===================== PAGE 1.5 — DARK ROOM ===================== */
     #page15 {
       display:none;opacity:0;transition:opacity .7s ease;
@@ -1170,6 +1219,10 @@
     </div>
   </div>
   <div class="p1-hint">✨ click the gates to enter ✨</div>
+  <div class="p1-swipe">
+    <div class="p1-swipe-chevrons"><span>˄</span><span>˄</span><span>˄</span></div>
+    <div class="p1-swipe-text">swipe up</div>
+  </div>
 </div>
 
 <!-- ============================================================
@@ -1337,6 +1390,41 @@ const LOCKED_POS = [84, 12];
 })();
 
 /* ═══════════════════════════════════════════════
+   TIKTOK FLOATING HEARTS
+═══════════════════════════════════════════════ */
+(function(){
+  const p1=document.getElementById('page1');
+  const hearts=['💗','💖','💕','🩷','♥️'];
+  function spawnHeart(){
+    if(doorOpened) return;
+    const h=document.createElement('div');
+    h.className='p1-tiktok-heart';
+    h.textContent=hearts[Math.floor(Math.random()*hearts.length)];
+    h.style.setProperty('--hx',(Math.random()*30-15)+'px');
+    h.style.animationDuration=(2.5+Math.random()*1.5)+'s';
+    h.style.right=Math.floor(10+Math.random()*30)+'px';
+    h.style.fontSize=(1.2+Math.random()*.8)+'rem';
+    p1.appendChild(h);
+    setTimeout(()=>h.remove(),4000);
+    setTimeout(spawnHeart,600+Math.random()*1200);
+  }
+  setTimeout(spawnHeart,800);
+})();
+
+/* ═══════════════════════════════════════════════
+   SWIPE SUPPORT (page 1)
+═══════════════════════════════════════════════ */
+(function(){
+  const p1=document.getElementById('page1');
+  let startY=0;
+  p1.addEventListener('touchstart',(e)=>{startY=e.touches[0].clientY;},{passive:true});
+  p1.addEventListener('touchend',(e)=>{
+    const dy=startY-e.changedTouches[0].clientY;
+    if(dy>60) handleDoorClick();
+  },{passive:true});
+})();
+
+/* ═══════════════════════════════════════════════
    DOOR → DARK ROOM
 ═══════════════════════════════════════════════ */
 let doorOpened=false;
@@ -1350,7 +1438,7 @@ function handleDoorClick(){
 function goToDarkRoom(){
   const p1=document.getElementById('page1');
   const p15=document.getElementById('page15');
-  p1.style.opacity='0';
+  p1.classList.add('slide-up');
   setTimeout(()=>{
     p1.style.display='none';
     buildDarkHearts();
